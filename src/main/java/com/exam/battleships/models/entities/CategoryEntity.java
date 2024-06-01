@@ -1,19 +1,16 @@
 package com.exam.battleships.models.entities;
 
 import com.exam.battleships.models.enims.TypeEnum;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Lob;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "categories")
 public class CategoryEntity extends BaseEntity {
     @Column(unique = true)
     private TypeEnum name;
-    @Lob
+    @Column(columnDefinition = "LONG TEXT")
     private String description;
-
+    @Enumerated(EnumType.STRING)
     public TypeEnum getName() {
         return name;
     }
