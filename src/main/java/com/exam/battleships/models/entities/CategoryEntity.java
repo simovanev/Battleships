@@ -8,9 +8,9 @@ import jakarta.persistence.*;
 public class CategoryEntity extends BaseEntity {
     @Column(unique = true)
     private TypeEnum name;
-    @Column(columnDefinition = "LONG TEXT")
+    @Column(columnDefinition = "text")
     private String description;
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     public TypeEnum getName() {
         return name;
     }

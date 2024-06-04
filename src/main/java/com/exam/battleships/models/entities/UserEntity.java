@@ -10,13 +10,15 @@ import jakarta.validation.constraints.Size;
 @Table(name="users")
 public class UserEntity extends BaseEntity{
     @Size(min = 3,max = 10)
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String username;
     @Size(min = 5,max = 20)
+    @Column(nullable = false)
     private String fullName;
     @Size(min = 3)
+    @Column(nullable = false)
     private String password;
-    @Column(unique = true)
+    @Column(unique = true,nullable = false)
     @Email
     private String email;
 

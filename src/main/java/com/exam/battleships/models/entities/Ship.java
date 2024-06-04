@@ -8,21 +8,25 @@ import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 import java.util.Date;
 
 @Entity
 @Table(name = "ships")
 public class Ship extends BaseEntity {
     @Size(min = 2, max = 10)
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String name;
     @Positive
+    @Column(nullable = false)
     private long health;
     @Positive
+    @Column(nullable = false)
     private long power;
     @Past
-    private Date created;
+    @Column(nullable = false)
+    private LocalDate created;
     @ManyToOne
     private CategoryEntity category;
     @ManyToOne
@@ -52,11 +56,11 @@ public class Ship extends BaseEntity {
         this.power = power;
     }
 
-    public Date getCreated() {
+    public LocalDate getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(LocalDate created) {
         this.created = created;
     }
 
