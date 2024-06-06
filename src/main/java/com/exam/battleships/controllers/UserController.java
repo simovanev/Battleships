@@ -31,6 +31,6 @@ public class UserController {
 
             return "redirect:/register";
         }
-        return "login";
+        return "redirect:/login";
     }
 }
