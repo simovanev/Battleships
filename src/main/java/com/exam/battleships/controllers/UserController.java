@@ -1,5 +1,6 @@
 package com.exam.battleships.controllers;
 
+import com.exam.battleships.models.dtos.LoginDto;
 import com.exam.battleships.models.dtos.UserRegisterDto;
 import com.exam.battleships.service.AuthService;
 import jakarta.validation.Valid;
@@ -22,6 +23,10 @@ public class UserController {
     public UserRegisterDto initUserRegisterDto() {
            return new UserRegisterDto();
     }
+    @ModelAttribute("loginDto")
+    public LoginDto initLoginDto() {
+        return new LoginDto();
+    }
 
     @GetMapping("/register")
     public String register() {
@@ -40,4 +45,26 @@ public class UserController {
         }
         return "redirect:/login";
     }
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+    @PostMapping("/login")
+    public String login(@Valid LoginDto loginDto,
+                        BindingResult bindingResult,
+                        RedirectAttributes redirectAttributes){
+        if (bindingResult.hasErrors() ){
+            redirectAttributes.addFlashAttribute("loginDto", loginDto);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.loginDto", bindingResult);
+
+        return "redirect:/login";
+        }
+        if (!authService.login(loginDto)){
+            redirectAttributes.addFlashAttribute("loginDto", loginDto);
+            redirectAttributes.addFlashAttribute("IncorrectCredentials",true);
+            return "redirect:/login";
+        }
+        return "redirect:/home";
+    }
+
 }

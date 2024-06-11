@@ -1,5 +1,6 @@
 package com.exam.battleships.service;
 
+import com.exam.battleships.models.dtos.LoginDto;
 import com.exam.battleships.models.dtos.UserRegisterDto;
 import com.exam.battleships.models.entities.UserEntity;
 import com.exam.battleships.repositories.UserRepository;
@@ -36,6 +37,16 @@ public class AuthService {
         user.setEmail(userRegisterDto.getEmail());
         user.setFullName(userRegisterDto.getFullName());
         userRepository.save(user);
+        return true;
+    }
+
+    public boolean login(LoginDto loginDto) {
+        Optional<UserEntity> byUsernameAndEmail =
+                userRepository.findByUsernameAndEmail(loginDto.getUsername(), loginDto.getPassword());
+        if (byUsernameAndEmail.isEmpty()){
+            return false;
+        }
+
         return true;
     }
 }
