@@ -44,12 +44,12 @@ public class AuthService {
     }
 
     public boolean login(LoginDto loginDto) {
-        Optional<UserEntity> byUsernameAndEmail =
-                userRepository.findByUsernameAndEmail(loginDto.getUsername(), loginDto.getPassword());
-        if (byUsernameAndEmail.isEmpty()) {
+        Optional<UserEntity> byUsernameAndPassword =
+                userRepository.findByUsernameAndPassword(loginDto.getUsername(), loginDto.getPassword());
+        if (byUsernameAndPassword.isEmpty()) {
             return false;
         }
-        loggedUser.login(byUsernameAndEmail.get());
+        loggedUser.login(byUsernameAndPassword.get());
         return true;
 
     }
