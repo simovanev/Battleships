@@ -32,7 +32,7 @@ public class ShipController {
     public String shipAdd(@Valid AddShipDto addShipDto,
                           BindingResult bindingResult,
                           RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors() || shipService.create(addShipDto)) {
+        if (bindingResult.hasErrors() || !shipService.create(addShipDto)) {
             redirectAttributes.addFlashAttribute("addShipDto", addShipDto);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.addShipDto, bindingResult");
             return "redirect:/ship/add";

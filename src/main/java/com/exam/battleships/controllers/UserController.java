@@ -32,6 +32,7 @@ public class UserController {
     public String register() {
         return "register";
     }
+
     @PostMapping("/register")
     public String register(@Valid UserRegisterDto userRegisterDto
             ,BindingResult bindingResult
