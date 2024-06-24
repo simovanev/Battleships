@@ -1,6 +1,7 @@
 package com.exam.battleships.service;
 
 import com.exam.battleships.models.dtos.AddShipDto;
+import com.exam.battleships.models.dtos.ShipDto;
 import com.exam.battleships.models.enims.TypeEnum;
 import com.exam.battleships.models.entities.CategoryEntity;
 import com.exam.battleships.models.entities.Ship;
@@ -13,6 +14,8 @@ import com.fasterxml.jackson.databind.util.EnumValues;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -52,5 +55,21 @@ public class ShipService {
 
         shipRepository.save(ship);
         return true;
+    }
+
+    public List<ShipDto> getShipsOwnedBy(long ownerId) {
+
+        return shipRepository.findByUserId(ownerId)
+                .stream()
+                .map(ship -> modelMapper.map(ship, ShipDto.class))
+                .toList();
+
+    }
+
+    public List<ShipDto> getShipsNotOwnedBy(long ownerId) {
+        return shipRepository.findByUserIdNot(ownerId)
+                .stream()
+                .map(ship -> modelMapper.map(ship, ShipDto.class))
+                .toList();
     }
 }
