@@ -15,4 +15,6 @@ public interface ShipRepository extends JpaRepository<Ship, Integer> {
     List<Ship> findByUserId(long ownerId);
 
     List<Ship> findByUserIdNot(long ownerId);
+
+    List<Ship> findBy();
 }

@@ -72,4 +72,11 @@ public class ShipService {
                 .map(ship -> modelMapper.map(ship, ShipDto.class))
                 .toList();
     }
+
+    public List<ShipDto> getAllShips() {
+        return shipRepository.findBy()
+                .stream()
+                .map(ship -> modelMapper.map(ship, ShipDto.class))
+                .toList();
+    }
 }
