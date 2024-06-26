@@ -1,14 +1,14 @@
 package com.exam.battleships.models.dtos;
 
 public class BattleDto {
-    private long attackerId;
-    private long defenderId;
+    private int attackerId;
+    private int defenderId;
 
     public int getAttackerId() {
         return attackerId;
     }
 
-    public void setAttackerId(long attackerId) {
+    public void setAttackerId(int attackerId) {
         this.attackerId = attackerId;
     }
 
@@ -16,7 +16,7 @@ public class BattleDto {
         return defenderId;
     }
 
-    public void setDefenderId(long defenderId) {
+    public void setDefenderId(int defenderId) {
         this.defenderId = defenderId;
     }
 }
