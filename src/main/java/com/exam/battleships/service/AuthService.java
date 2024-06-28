@@ -6,6 +6,7 @@ import com.exam.battleships.models.entities.UserEntity;
 import com.exam.battleships.repositories.UserRepository;
 import com.exam.battleships.session.LoggedUser;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Optional;
 
@@ -52,5 +53,9 @@ public class AuthService {
         loggedUser.login(byUsernameAndPassword.get());
         return true;
 
+    }
+
+    public void logout() {
+        loggedUser.logout();
     }
 }
