@@ -21,8 +21,9 @@ public class UserController {
 
     @ModelAttribute("userRegisterDto")
     public UserRegisterDto initUserRegisterDto() {
-           return new UserRegisterDto();
+        return new UserRegisterDto();
     }
+
     @ModelAttribute("loginDto")
     public LoginDto initLoginDto() {
         return new LoginDto();
@@ -35,7 +36,7 @@ public class UserController {
 
     @PostMapping("/register")
     public String register(@Valid UserRegisterDto userRegisterDto
-            ,BindingResult bindingResult
+            , BindingResult bindingResult
             , RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors() || authService.register(userRegisterDto)) {
             redirectAttributes.addFlashAttribute("userRegisterDto", userRegisterDto);
@@ -46,31 +47,34 @@ public class UserController {
         }
         return "redirect:/login";
     }
+
     @GetMapping("/login")
     public String login() {
         return "login";
     }
+
     @PostMapping("/login")
     public String login(@Valid LoginDto loginDto,
                         BindingResult bindingResult,
-                        RedirectAttributes redirectAttributes){
-        if (bindingResult.hasErrors() ){
+                        RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("loginDto", loginDto);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.loginDto", bindingResult);
 
-        return "redirect:/login";
+            return "redirect:/login";
         }
-        if (!authService.login(loginDto)){
+        if (!authService.login(loginDto)) {
             redirectAttributes.addFlashAttribute("loginDto", loginDto);
-            redirectAttributes.addFlashAttribute("IncorrectCredentials",true);
+            redirectAttributes.addFlashAttribute("IncorrectCredentials", true);
             return "redirect:/login";
         }
         return "redirect:/home";
     }
+
     @GetMapping("/logout")
-    public String logout(){
+    public String logout() {
         authService.logout();
-return  "redirect:/";
+        return "redirect:/";
     }
 
 }

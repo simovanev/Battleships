@@ -22,25 +22,30 @@ public class HomeController {
         this.shipService = shipService;
         this.loggedUser = loggedUser;
     }
+
     @ModelAttribute("battleDto")
-    public BattleDto battleships(){
+    public BattleDto battleships() {
         return new BattleDto();
     }
 
     @GetMapping("/")
-    public String LoggedOutIndex(){
+    public String LoggedOutIndex() {
         return "index";
     }
+
     @GetMapping("/home")
     public String LoggedInIndex(Model model) {
 
-        long ownerId= loggedUser.getId();
-        List<ShipDto> ownShips= shipService.getShipsOwnedBy(ownerId);
-        List<ShipDto> enemyShips= shipService.getShipsNotOwnedBy(ownerId);
-        List<ShipDto> allShips=shipService.getAllShips();
+        long ownerId = loggedUser.getId();
+        if (ownerId == 0) {
+            return "redirect:/";
+        }
+        List<ShipDto> ownShips = shipService.getShipsOwnedBy(ownerId);
+        List<ShipDto> enemyShips = shipService.getShipsNotOwnedBy(ownerId);
+        List<ShipDto> allShips = shipService.getAllShips();
 
         model.addAttribute("ownShips", ownShips);
-        model.addAttribute("enemyShips",enemyShips );
+        model.addAttribute("enemyShips", enemyShips);
         model.addAttribute("allShips", allShips);
         return "home";
     }
